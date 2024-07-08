@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../config/palette.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'chat_screen.dart';
+
 class LoginSignupScreen extends StatefulWidget {
   const LoginSignupScreen({Key? key}) : super(key: key);
 
@@ -425,8 +427,15 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 .createUserWithEmailAndPassword(
                                     email: userEmail, password: userPassword);
 
-                            if(newUser.user != null){
-
+                            if (newUser.user != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ChatScreen();
+                                  },
+                                ),
+                              );
                             }
                           } catch (e) {
                             print(e);
@@ -436,6 +445,26 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               backgroundColor: Colors.blue,
                             ));
                           }
+                        }
+                        if (!isSignupScreen) {
+                          _tryValidation();
+                        }
+                        try {
+                          final newUser =
+                              await _authentication.signInWithEmailAndPassword(
+                                  email: userEmail, password: userPassword);
+                          if (newUser.user != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ChatScreen();
+                                },
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          print(e);
                         }
                       },
                       child: Container(

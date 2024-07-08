@@ -1,0 +1,4 @@
+#Tue Jul 09 02:53:03 KST 2024
+base.0=/Users/parkjimin/flutter_ws/chatapp/ios/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
