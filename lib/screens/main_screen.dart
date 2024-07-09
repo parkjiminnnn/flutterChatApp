@@ -426,6 +426,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             final newUser = await _authentication
                                 .createUserWithEmailAndPassword(
                                     email: userEmail, password: userPassword);
+                            //FirebaseFirestore.
 
                             if (newUser.user != null) {
                               Navigator.push(
