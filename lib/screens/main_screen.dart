@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../config/palette.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'chat_screen.dart';
 
@@ -454,15 +455,21 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           final newUser =
                               await _authentication.signInWithEmailAndPassword(
                                   email: userEmail, password: userPassword);
+
+                          await FirebaseFirestore.instance
+                              .collection('user')
+                              .doc(newUser.user!
+                                  .uid) //Firestore 데이터베이스의 user 컬렉션에 새로운 도큐먼트를 생성하거나 기존 도큐먼트를 업데이트
+                              .set({'userName': userName, 'email': userEmail});
                           if (newUser.user != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ChatScreen();
-                                },
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return ChatScreen();
+                            //     },
+                            //   ),
+                            // );
                           }
                         } catch (e) {
                           print(e);

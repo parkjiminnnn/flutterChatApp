@@ -1,4 +1,6 @@
+import 'package:chatapp/screens/chat_screen.dart';
 import 'package:chatapp/screens/main_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Chatting app',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LoginSignupScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            return ChatScreen();
+          }
+          return LoginSignupScreen();
+        },
+      )
     );
   }
 }
