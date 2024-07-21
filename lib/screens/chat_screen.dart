@@ -1,3 +1,5 @@
+import 'package:chatapp/chatting/chat/message.dart';
+import 'package:chatapp/chatting/chat/new_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                 ) {
               _authentication.signOut();
-              
+
 
           },
             icon: Icon(
@@ -52,9 +54,14 @@ class _ChatScreenState extends State<ChatScreen> {
           )
         ],
       ),
-      // body: StreamBuilder(
-      //
-      // )
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(child: Messages()),
+            NewMessage(),
+          ],
+        ),
+      )
     );
   }
 }
